@@ -415,6 +415,7 @@ func (o *OperandBundle) String() string {
 //   - [ir.AttrString]
 //   - [ir.AttrPair]
 //   - [ir.Align]
+//   - [ir.AttrCaptures]
 //   - [ir.Dereferenceable]
 //   - [enum.ParamAttr]
 type ParamAttribute interface {
