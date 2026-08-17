@@ -77,6 +77,10 @@ var (
 //
 //   - [constant.Expression]
 //
+// # Pointer Auhentication Constants
+//
+// https://llvm.org/docs/LangRef.html#pointer-authentication-constants
+//
 // [*ir.Global]: https://pkg.go.dev/github.com/llir/llvm/ir#Global
 // [*ir.Func]: https://pkg.go.dev/github.com/llir/llvm/ir#Func
 // [*ir.Alias]: https://pkg.go.dev/github.com/llir/llvm/ir#Alias
