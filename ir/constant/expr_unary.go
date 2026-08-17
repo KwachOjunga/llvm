@@ -6,6 +6,7 @@ import (
 	"github.com/llir/llvm/ir/types"
 )
 
+//: DEPRECATED
 // --- [ Unary expressions ] ---------------------------------------------------
 
 // ~~~ [ fneg ] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -46,6 +47,7 @@ func (e *ExprFNeg) Type() types.Type {
 
 // Ident returns the identifier associated with the constant expression.
 func (e *ExprFNeg) Ident() string {
-	// 'fneg' '(' X=TypeConst ')'
-	return fmt.Sprintf("fneg (%s)", e.X)
+	// Deprecated: fneg constant expression was removed in LLVM 16. Use the fneg instruction instead.
+	// See: https://github.com/llir/llvm/blob/v0.3.6/ir/inst_unary.go#L34
+	return "/* DEPRECATED: fneg constant expression removed in LLVM 16 */"
 }
