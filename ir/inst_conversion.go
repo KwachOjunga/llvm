@@ -699,3 +699,56 @@ func (inst *InstAddrSpaceCast) LLString() string {
 func (inst *InstAddrSpaceCast) Operands() []*value.Value {
 	return []*value.Value{&inst.From}
 }
+
+// ~~~ [ ptrtoaddr ] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// InstPtrToAddr is an LLVM IR `ptrtoaddr` instruction.
+// Strips pointer provenance and returns the raw address as an integer type.
+// Added in LLVM 22.
+type InstPtrToAddr struct {
+	// Name of local variable associated with the result.
+	LocalIdent
+	// Value before conversion.
+	From value.Value
+	// Type after conversion (integer type).
+	To types.Type
+
+	// extra.
+
+	// (optional) Metadata.
+	Metadata
+}
+
+// NewPtrToAddr returns a new ptrtoaddr instruction based on the given source
+// value and target type.
+func NewPtrToAddr(from value.Value, to types.Type) *InstPtrToAddr {
+	return &InstPtrToAddr{From: from, To: to}
+}
+
+// String returns the LLVM syntax representation of the instruction as a
+// type-value pair.
+func (inst *InstPtrToAddr) String() string {
+	return fmt.Sprintf("%s %s", inst.Type(), inst.Ident())
+}
+
+// Type returns the type of the instruction.
+func (inst *InstPtrToAddr) Type() types.Type {
+	return inst.To
+}
+
+// LLString returns the LLVM syntax representation of the instruction.
+func (inst *InstPtrToAddr) LLString() string {
+	// 'ptrtoaddr' From=TypeValue 'to' To=Type
+	buf := &strings.Builder{}
+	fmt.Fprintf(buf, "%s = ", inst.Ident())
+	fmt.Fprintf(buf, "ptrtoaddr %s to %s", inst.From, inst.To)
+	for _, md := range inst.Metadata {
+		fmt.Fprintf(buf, ", %s", md)
+	}
+	return buf.String()
+}
+
+// Operands returns a mutable list of operands of the given instruction.
+func (inst *InstPtrToAddr) Operands() []*value.Value {
+	return []*value.Value{&inst.From}
+}

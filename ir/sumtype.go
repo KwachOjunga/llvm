@@ -123,6 +123,7 @@ func (*InstPtrToInt) isInstruction()      {}
 func (*InstIntToPtr) isInstruction()      {}
 func (*InstBitCast) isInstruction()       {}
 func (*InstAddrSpaceCast) isInstruction() {}
+func (*InstPtrToAddr) isInstruction()     {}
 
 // Other instructions.
 func (*InstICmp) isInstruction()       {}

@@ -136,3 +136,13 @@ func (block *Block) NewAddrSpaceCast(from value.Value, to types.Type) *InstAddrS
 	block.Insts = append(block.Insts, inst)
 	return inst
 }
+
+// ~~~ [ ptrtoaddr ] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// NewAddrSpaceCast appends a new ptrtoaddr instruction to the basic block
+// based on the given source value and target type.
+func (block *Block) NewPtrToAddr(from value.Value, to types.Type) *InstPtrToAddr {
+	inst := NewPtrToAddr(from, to)
+	block.Insts = append(block.Insts, inst)
+	return inst
+}
