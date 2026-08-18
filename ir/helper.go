@@ -250,6 +250,7 @@ type ExceptionPad interface {
 //
 // A FuncAttribute has one of the following underlying types.
 //
+//   - [ir.AttrMemory]
 //   - [ir.AttrString]
 //   - [ir.AttrPair]
 //   - [*ir.AttrGroupDef]

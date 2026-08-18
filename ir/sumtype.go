@@ -22,6 +22,10 @@ func (*IFunc) IsConstant() {}
 
 // IsFuncAttribute ensures that only function attributes can be assigned to
 // the ir.FuncAttribute interface.
+func (*AttrMemory) IsFuncAttribute() {}
+
+// IsFuncAttribute ensures that only function attributes can be assigned to
+// the ir.FuncAttribute interface.
 func (AttrString) IsFuncAttribute() {}
 
 // IsFuncAttribute ensures that only function attributes can be assigned to
