@@ -140,6 +140,10 @@ func (*InstCleanupPad) isInstruction() {}
 
 // IsParamAttribute ensures that only parameter attributes can be assigned to
 // the ir.ParamAttribute interface.
+func (*AttrInitializes) IsParamAttribute() {}
+
+// IsParamAttribute ensures that only parameter attributes can be assigned to
+// the ir.ParamAttribute interface.
 func (AttrString) IsParamAttribute() {}
 
 // IsParamAttribute ensures that only parameter attributes can be assigned to

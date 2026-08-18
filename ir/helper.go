@@ -413,6 +413,7 @@ func (o *OperandBundle) String() string {
 //
 // A ParamAttribute has one of the following underlying types.
 //
+//   - [*ir.AttrMemory]
 //   - [ir.AttrString]
 //   - [ir.AttrPair]
 //   - [ir.Align]
