@@ -58,7 +58,8 @@ func (e *ExprICmp) Type() types.Type {
 // Ident returns the identifier associated with the constant expression.
 func (e *ExprICmp) Ident() string {
 	// 'icmp' Pred=IPred '(' X=TypeConst ',' Y=TypeConst ')'
-	return fmt.Sprintf("icmp %s (%s, %s)", e.Pred, e.X, e.Y)
+	// return fmt.Sprintf("icmp %s (%s, %s)", e.Pred, e.X, e.Y)
+	return "/* Deprecated: Constant icmp expressions were removed in LLVM 19. */"
 }
 
 // ~~~ [ fcmp ] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -110,7 +111,9 @@ func (e *ExprFCmp) Type() types.Type {
 // Ident returns the identifier associated with the constant expression.
 func (e *ExprFCmp) Ident() string {
 	// 'fcmp' Pred=FPred '(' X=TypeConst ',' Y=TypeConst ')'
-	return fmt.Sprintf("fcmp %s (%s, %s)", e.Pred, e.X, e.Y)
+	// return fmt.Sprintf("fcmp %s (%s, %s)", e.Pred, e.X, e.Y)
+	// Deprecated: Constant fcmp expressions were removed in LLVM 19.`
+	return "/* Deprecated: Constant fcmp expressions were removed in LLVM 19.` */"
 }
 
 // ~~~ [ select ] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -155,5 +158,7 @@ func (e *ExprSelect) Type() types.Type {
 // Ident returns the identifier associated with the constant expression.
 func (e *ExprSelect) Ident() string {
 	// 'select' '(' Cond=TypeConst ',' X=TypeConst ',' Y=TypeConst ')'
-	return fmt.Sprintf("select (%s, %s, %s)", e.Cond, e.X, e.Y)
+	// return fmt.Sprintf("select (%s, %s, %s)", e.Cond, e.X, e.Y)
+	// Deprecated: Constant select expressions were removed in LLVM 17.
+	return "/* Deprecated: Constant select expressions were removed in LLVM 17. */"
 }

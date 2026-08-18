@@ -62,14 +62,6 @@ package constant
 //   - [*constant.ExprIntToPtr]
 //   - [*constant.ExprBitCast]
 //   - [*constant.ExprAddrSpaceCast]
-//
-// # Other expressions
-//
-// https://llvm.org/docs/LangRef.html#constant-expressions
-//
-//   - [*constant.ExprICmp]
-//   - [*constant.ExprFCmp]
-//   - [*constant.ExprSelect]
 type Expression interface {
 	Constant
 	// IsExpression ensures that only constants expressions can be assigned to
