@@ -124,6 +124,12 @@ func IsStruct(t Type) bool {
 	return ok
 }
 
+// IsTargetExt reports whether the given type is a TargetExt type.
+func IsTargetExt(t Type) bool {
+	_, ok := t.(*TargetExtType)
+	return ok
+}
+
 // Equal reports whether t and u are of equal type.
 func Equal(t, u Type) bool {
 	return t.Equal(u)
@@ -145,6 +151,7 @@ func Equal(t, u Type) bool {
 //   - [*types.MetadataType]
 //   - [*types.ArrayType]
 //   - [*types.StructType]
+//   - [*types.TargetExtType]
 type Type interface {
 	fmt.Stringer
 	// LLString returns the LLVM syntax representation of the definition of the
@@ -855,5 +862,80 @@ func (t *StructType) Name() string {
 
 // SetName sets the type name of the type.
 func (t *StructType) SetName(name string) {
+	t.TypeName = name
+}
+
+// --- [ TargetExtTypes ] -----------------------------------------------------
+
+// TargetExtType is an LLVM IR target extension type.
+// Added in LLVM 16.
+// Syntax: target("name", T1, T2, N1, N2)
+type TargetExtType struct {
+	// Type name; or empty if not present.
+	TypeName string
+	// Target extension name (e.g. "spirv.Image").
+	ExtName string
+	// Type parameters.
+	TypeParams []Type
+	// Integer parameters.
+	IntParams []uint64
+}
+
+func NewTargetExt(name string) *TargetExtType {
+	return &TargetExtType{ExtName: name}
+}
+
+func (t *TargetExtType) Equal(u Type) bool {
+	if u, ok := u.(*TargetExtType); ok {
+		if t.ExtName != u.ExtName {
+			return false
+		}
+		if len(t.TypeParams) != len(u.TypeParams) {
+			return false
+		}
+		for i := range t.TypeParams {
+			if !t.TypeParams[i].Equal(u.TypeParams[i]) {
+				return false
+			}
+		}
+		if len(t.IntParams) != len(u.IntParams) {
+			return false
+		}
+		for i := range t.IntParams {
+			if t.IntParams[i] != u.IntParams[i] {
+				return false
+			}
+		}
+		return true
+	}
+	return false
+}
+
+func (t *TargetExtType) String() string {
+	if len(t.TypeName) > 0 {
+		return enc.TypeName(t.TypeName)
+	}
+	return t.LLString()
+}
+
+func (t *TargetExtType) LLString() string {
+	// target("name", T1, T2, N1, N2)
+	buf := &strings.Builder{}
+	fmt.Fprintf(buf, "target(%q", t.ExtName)
+	for _, tp := range t.TypeParams {
+		fmt.Fprintf(buf, ", %s", tp)
+	}
+	for _, ip := range t.IntParams {
+		fmt.Fprintf(buf, ", %d", ip)
+	}
+	buf.WriteString(")")
+	return buf.String()
+}
+
+func (t *TargetExtType) Name() string {
+	return t.TypeName
+}
+
+func (t *TargetExtType) SetName(name string) {
 	t.TypeName = name
 }

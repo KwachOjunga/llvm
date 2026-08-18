@@ -181,6 +181,10 @@ func (InAlloca) IsParamAttribute() {}
 
 // IsParamAttribute ensures that only parameter attributes can be assigned to
 // the ir.ParamAttribute interface.
+func (*AttrNoFPClass) IsParamAttribute() {}
+
+// IsParamAttribute ensures that only parameter attributes can be assigned to
+// the ir.ParamAttribute interface.
 func (Preallocated) IsParamAttribute() {}
 
 // IsParamAttribute ensures that only parameter attributes can be assigned to
@@ -204,3 +208,7 @@ func (Align) IsReturnAttribute() {}
 // IsReturnAttribute ensures that only return attributes can be assigned to
 // the ir.ReturnAttribute interface.
 func (Dereferenceable) IsReturnAttribute() {}
+
+// IsReturnAttribute ensures that only return attributes can be assigned to
+// the ir.ReturnAttribute interface.
+func (*AttrNoFPClass) IsReturnAttribute() {}
